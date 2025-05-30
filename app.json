@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "solana-mobile-anchor-counter-dapp-rn-expo-template",
+    "slug": "solana-mobile-anchor-counter-dapp-rn-expo-template",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.solanamobile.anchorcounterdapp.rnexpo.template"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.solanamobile.anchorcounterdapp.rnexpo.template"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
