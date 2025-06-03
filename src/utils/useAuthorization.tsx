@@ -7,8 +7,6 @@ import {
   AuthToken,
   Base64EncodedAddress,
   DeauthorizeAPI,
-  SignInPayloadWithRequiredFields,
-  SignInPayload,
 } from "@solana-mobile/mobile-wallet-adapter-protocol";
 import { toUint8Array } from "js-base64";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -140,12 +138,16 @@ export function useAuthorization() {
     [authorization, handleAuthorizationResult]
   );
   const authorizeSessionWithSignIn = useCallback(
-    async (wallet: AuthorizeAPI, signInPayload: SignInPayload) => {
+    async (wallet: AuthorizeAPI) => {
       const authorizationResult = await wallet.authorize({
         identity: APP_IDENTITY,
         chain: CHAIN_IDENTIFIER,
         auth_token: authorization?.authToken,
-        sign_in_payload: signInPayload,
+        sign_in_payload: {
+          domain: "yourdomain.com",
+          statement: "Sign into Expo Template App",
+          uri: "https://yourdomain.com",
+        },
       });
       return (await handleAuthorizationResult(authorizationResult))
         .selectedAccount;

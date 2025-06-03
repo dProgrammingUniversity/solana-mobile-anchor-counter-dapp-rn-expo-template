@@ -1,9 +1,8 @@
 // /src/components/counter/counter-data-access.tsx
 import { AnchorProvider, Program } from "@coral-xyz/anchor";
-import { PublicKey, SystemProgram } from "@solana/web3.js";
+import { PublicKey } from "@solana/web3.js";
 import { useMemo } from "react";
 import * as anchor from "@coral-xyz/anchor";
-import { Buffer } from 'buffer';
 
 import { BasicCounter as BasicCounterProgram } from "../../../src/components/counter/types/basic_counter";
 import idl from "../../../src/components/counter/idl/basic_counter.json";
@@ -26,15 +25,7 @@ type CounterAccountStatus = {
   rawData?: Buffer;
 };
 
-/** 
- * Polyfill structuredClone for React Native
- */
-if (typeof global.structuredClone !== 'function') {
-  global.structuredClone = function structuredClone(obj: any) {
-    return JSON.parse(JSON.stringify(obj));
-  };
-}
-
+// Constant for the program ID
 const COUNTER_PROGRAM_ID = "FfCxv78MgdXf9TvFzFVwXVuuYCqWUdFgAMdAnY97q5A8";
 
 export function useCounterProgram() {
@@ -202,12 +193,12 @@ export function useCounterProgram() {
         })
         .rpc();
     },
-    onSuccess: async (signature: string) => {
-      console.log("Increment success:", signature);
-      // Wait for confirmation before refetching
-      await connection.confirmTransaction(signature);
-      return counterAccount.refetch();
-    },
+    onSuccess: async (signature: string, amount: number) => {
+        console.log("Increment success:", signature);
+        alertAndLog(`Counter Incremented By ${amount} Successfully!!!`, `Signature: ${signature}`);
+        //Refetch counter account
+        await counterAccount.refetch();
+      },
     onError: (error: Error) => {
       console.log("Increment error:", error);
       alertAndLog(error.name, error.message);
